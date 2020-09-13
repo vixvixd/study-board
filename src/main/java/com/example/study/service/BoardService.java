@@ -16,10 +16,25 @@ public class BoardService {
 
     @Transactional
     public Long save(BoardDto boardDto) {
-        Board board = boardDto.toEntity();
+//        Board board = boardDto.toEntity();
+//        Board saved = boardRepository.save(board);
+        return boardRepository.save(boardDto.toEntity()).getId();
+    }
 
-        Board saved = boardRepository.save(board);
+    @Transactional
+    public Long update(Long id, BoardDto boardDto) {
 
-        return saved.getId();
+        Board board = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                );
+
+        board.update(boardDto.getTitle(), boardDto.getContent());
+        // 트랜잭션 안에서 데이터베이스에서 데이터를 가져오면 이 데이터는 영속성 컨텍스트가 유지된 상태
+        // 이 상태에서 해당 데이터의 값을 변경하면 트핸잭션이 끝나는 시점에 해당 테이블에 변경분을 반영
+        // 그래서 별도로 update쿼리를 날릴 필요가 없다
+        // 이 개념을 더티 체킹 이라 함
+
+        return id;
     }
 }

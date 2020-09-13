@@ -11,6 +11,7 @@ import javax.persistence.Column;
 @NoArgsConstructor
 public class BoardDto {
 
+    private Long id;
     private String title;
     private String content;
     private String author;
@@ -29,4 +30,12 @@ public class BoardDto {
                 .author(author)
                 .build();
     }
+
+    public BoardDto(Board entity) {
+        this.id = entity.getId();
+        this.title = entity.getTitle();
+        this.content = entity.getContent();
+        this.author = entity.getAuthor();
+    }
+
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -62,6 +64,40 @@ public class BoardApiControllerTest {
         assertThat(saved.get(0).getTitle()).isEqualTo(title);
         assertThat(saved.get(0).getContent()).isEqualTo(content);
         assertThat(saved.get(0).getAuthor()).isEqualTo(author);
+    }
+
+    @Test
+    public void 게시글_수정() {
+        //given
+        Board saved = boardRepository.save(Board.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        Long updatedId = saved.getId();
+        String updatedTitle = "title1";
+        String updatedContent = "content1";
+
+        BoardDto boardDto = BoardDto.builder()
+                .title(updatedTitle)
+                .content(updatedContent)
+                .build();
+
+        String url = "http://localhost:"+port+"/api/board/"+updatedId;
+
+        HttpEntity<BoardDto> requestEntity = new HttpEntity<>(boardDto);
+
+        //when
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Board> updated = boardRepository.findAll();
+        assertThat(updated.get(0).getTitle()).isEqualTo(updatedTitle);
+        assertThat(updated.get(0).getContent()).isEqualTo(updatedContent);
 
     }
 }
