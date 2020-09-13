@@ -24,6 +24,13 @@ public class BoardApiController {
         return boardService.update(id, boardDto);
     }
 
+    @DeleteMapping("/api/board/{id}")
+    public Long delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return id;
+
+    }
+
     @GetMapping("/api/board/{id}")
     public BoardDto getBoard(@PathVariable Long id) {
         Board entity = boardRepository.findById(id)

@@ -1,0 +1,30 @@
+{{>layout/header}}
+
+<table class="table table-hover">
+    <tbody>
+    {{#board}}
+        <tr>
+            <th>글번호</th>
+            <td>{{id}}</td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td>{{title}}</td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td>{{content}}</td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td>{{author}}</td>
+        </tr>
+        <tr>
+            <th>최근작성시간</th>
+            <td>{{updatedTime}}</td>
+        </tr>
+    {{/board}}
+    </tbody>
+</table>
+
+{{>layout/footer}}

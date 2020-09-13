@@ -3,6 +3,7 @@ package com.example.study.api;
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -98,6 +96,5 @@ public class BoardApiControllerTest {
         List<Board> updated = boardRepository.findAll();
         assertThat(updated.get(0).getTitle()).isEqualTo(updatedTitle);
         assertThat(updated.get(0).getContent()).isEqualTo(updatedContent);
-
     }
 }
