@@ -1,30 +1,37 @@
 {{>layout/header}}
 
 <table class="table table-hover">
-    <tbody>
-    {{#board}}
-        <tr>
-            <th>글번호</th>
-            <td>{{id}}</td>
-        </tr>
-        <tr>
-            <th>제목</th>
-            <td>{{title}}</td>
-        </tr>
-        <tr>
-            <th>내용</th>
-            <td>{{content}}</td>
-        </tr>
-        <tr>
-            <th>작성자</th>
-            <td>{{author}}</td>
-        </tr>
-        <tr>
-            <th>최근작성시간</th>
-            <td>{{updatedTime}}</td>
-        </tr>
-    {{/board}}
+<tbody>
+{{#board}}
+    <tr>
+        <th>글번호</th>
+        <td>{{id}}</td>
+    </tr>
+    <tr>
+        <th>제목</th>
+        <td>{{title}}</td>
+    </tr>
+    <tr>
+        <th>내용</th>
+        <td>{{content}}</td>
+    </tr>
+    <tr>
+        <th>작성자</th>
+        <td>{{author}}</td>
+    </tr>
+    <tr>
+        <th>최근작성시간</th>
+        <td>{{updatedTime}}</td>
+    </tr>
+
     </tbody>
-</table>
+    </table>
+    <div>
+        <a href="/edit/{{id}}" class="btn btn-success">수정</a>
+        <button type="button" class="btn btn-danger" id="delete">삭제</button>
+    </div>
+{{/board}}
+
+<script src="/js/app/board.js"></script>
 
 {{>layout/footer}}

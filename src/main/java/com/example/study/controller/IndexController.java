@@ -29,18 +29,28 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create") // 게시글 작성 페이지
     public String create() {
         return "create";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // 게시글 상세 페이지
     public String show(@PathVariable Long id, Model model) {
         Board board = boardRepository.findById(id).orElse(null);
 
         model.addAttribute("board", board);
 
         return "show";
+    }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Board edit = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                );
+        model.addAttribute("board", edit);
+
+        return "edit";
     }
 }

@@ -28,7 +28,6 @@ public class BoardApiController {
     public Long delete(@PathVariable Long id) {
         boardService.delete(id);
         return id;
-
     }
 
     @GetMapping("/api/board/{id}")

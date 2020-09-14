@@ -97,4 +97,20 @@ public class BoardApiControllerTest {
         assertThat(updated.get(0).getTitle()).isEqualTo(updatedTitle);
         assertThat(updated.get(0).getContent()).isEqualTo(updatedContent);
     }
+
+    @Test
+    public void 게시글_삭제() {
+        //given
+        Board saved = boardRepository.save(Board.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        //when
+        boardRepository.delete(saved);
+
+        //then
+        assertThat(boardRepository.findAll()).isEmpty();
+    }
 }
