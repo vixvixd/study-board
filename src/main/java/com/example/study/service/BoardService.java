@@ -27,7 +27,7 @@ public class BoardService {
 
         Board board = boardRepository.findById(id)
                 .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                        () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
         board.update(boardDto.getTitle(), boardDto.getContent());
@@ -43,7 +43,7 @@ public class BoardService {
     public void delete(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                        () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
         boardRepository.delete(board);

@@ -29,7 +29,7 @@
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then(function(response) { // 응답 처리!
+      }).then(function(response) {
         if (response.ok) {
           alert('게시글이 작성 되었습니다.');
           window.location.href='/';
@@ -38,12 +38,12 @@
         }
       });
     },
-       update: function() {
-          var data = {
-            id: document.querySelector('#board_id').value,
-            title: document.querySelector('#title').value,
-            content: document.querySelector('#content').value,
-            author: document.querySelector('#author').value,
+    update: function() {
+      var data = {
+        id: document.querySelector('#board_id').value,
+        title: document.querySelector('#title').value,
+        content: document.querySelector('#content').value,
+        author: document.querySelector('#author').value,
           };
           fetch('/api/board/'+data.id , {
             method: 'PUT',
@@ -51,7 +51,7 @@
             headers: {
               'Content-Type': 'application/json'
             }
-          }).then(function(response) { // 응답 처리!
+          }).then(function(response) {
             if (response.ok) {
               alert('게시글이 작성 되었습니다.');
               window.location.href='/'+data.id;

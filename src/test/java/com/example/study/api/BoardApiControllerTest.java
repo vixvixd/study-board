@@ -3,7 +3,6 @@ package com.example.study.api;
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
-import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,8 +36,8 @@ public class BoardApiControllerTest {
     }
 
     @Test
-    public void 게시글_저장() {
-        //given 준비
+    public void 게시글_저장() throws Exception{
+        //given
         String title = "테스트 제목";
         String content = "테스트 본문";
         String author = "테스트 계정";
@@ -51,10 +50,10 @@ public class BoardApiControllerTest {
 
         String url = "http://localhost:"+port+"/api/board";
 
-        //when 실행
+        //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, boardDto, Long.class);
 
-        //then 검증
+        //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
@@ -65,7 +64,7 @@ public class BoardApiControllerTest {
     }
 
     @Test
-    public void 게시글_수정() {
+    public void 게시글_수정() throws Exception{
         //given
         Board saved = boardRepository.save(Board.builder()
                 .title("title")
@@ -74,6 +73,7 @@ public class BoardApiControllerTest {
                 .build());
 
         Long updatedId = saved.getId();
+
         String updatedTitle = "title1";
         String updatedContent = "content1";
 
@@ -99,7 +99,7 @@ public class BoardApiControllerTest {
     }
 
     @Test
-    public void 게시글_삭제() {
+    public void 게시글_삭제() throws Exception{
         //given
         Board saved = boardRepository.save(Board.builder()
                 .title("title")
@@ -107,10 +107,20 @@ public class BoardApiControllerTest {
                 .author("author")
                 .build());
 
+        Long savedId = saved.getId();
+
+        String url = "http://localhost:"+port+"/api/board/"+savedId;
+
+        HttpEntity<Board> savedEntity = new HttpEntity<>(saved);
+
         //when
-        boardRepository.delete(saved);
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, savedEntity, Long.class);
 
         //then
-        assertThat(boardRepository.findAll()).isEmpty();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Board> deleted = boardRepository.findAll();
+        assertThat(deleted).isEmpty();
     }
 }

@@ -47,7 +47,7 @@ public class IndexController {
     public String edit(@PathVariable Long id, Model model) {
         Board edit = boardRepository.findById(id)
                 .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                        () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
         model.addAttribute("board", edit);
 
