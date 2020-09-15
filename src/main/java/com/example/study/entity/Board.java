@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
+@Table(name = "board")
 @NoArgsConstructor
 @Entity
 public class Board extends BaseTime {
@@ -23,6 +25,9 @@ public class Board extends BaseTime {
 
     @Column(nullable = false)
     private String author;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+    private List<Comment> comments;
 
     @Builder
     public Board(Long id, String title, String content, String author) {
