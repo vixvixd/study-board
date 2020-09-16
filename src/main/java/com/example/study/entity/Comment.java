@@ -26,4 +26,15 @@ public class Comment extends BaseTime {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @Builder
+    public Comment(Long id, String author, String content, Board board) {
+        this.id = id;
+        this.author = author;
+        this.content = content;
+        this.board = board;
+    }
+
+    public void stickTo(Board board) {
+        this.board = board;
+    }
 }
