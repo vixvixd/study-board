@@ -19,7 +19,7 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long save(Long articleId, CommentDto commentDto) {
+    public Comment save(Long articleId, CommentDto commentDto) {
 
         // 댓글 확인
         Comment comment = commentDto.toEntity();
@@ -35,6 +35,6 @@ public class CommentService {
 
         Comment saved = commentRepository.save(comment);
 
-        return saved.getId();
+        return saved;
     }
 }

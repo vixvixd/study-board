@@ -18,6 +18,8 @@ public class CommentApiController {
 
     @PostMapping("/api/comments/{boardId}")
     public Long create(@PathVariable Long boardId, @RequestBody CommentDto commentDto) {
-        return commentService.save(boardId, commentDto);
+        Comment saved = commentService.save(boardId, commentDto);
+
+        return saved.getId();
     }
 }
