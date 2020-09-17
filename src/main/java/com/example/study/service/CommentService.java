@@ -5,6 +5,7 @@ import com.example.study.entity.Board;
 import com.example.study.entity.Comment;
 import com.example.study.repository.BoardRepository;
 import com.example.study.repository.CommentRepository;
+import jdk.nashorn.internal.runtime.arrays.IteratorAction;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

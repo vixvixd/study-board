@@ -1,0 +1,30 @@
+<ul class="list-unstyled">
+    {{#comments}}
+        <li class="media mt-4" id="comment-{{id}}">
+            <img src="https://api.adorable.io/avatars/64/{{author}}.png" class="mr-3" alt="avata">
+            <div class="media-body">
+                <!-- 댓글 -->
+                <h5 class="mt-0 mb-1">{{author}}
+                    <small>
+                        <!-- 부트스트랩 collapse 활용, https://getbootstrap.com/docs/4.5/components/collapse/ -->
+                        <a href="#" class="comment-edit-btn" data-toggle="collapse" data-target=".multi-collapse-{{id}}">수정</a>
+                    </small>
+                </h5>
+
+                <!-- 보기 모드 -->
+                <p class="collapse multi-collapse-{{id}} show">{{content}}</p>
+                {{updatedTime}}
+
+                <!-- 수정 모드 -->
+                <form class="collapse multi-collapse-{{id}}">
+                    <div class="form-group">
+                        <textarea class="form-control" id="comment-content" rows="3">{{content}}</textarea>
+                    </div>
+                    <input type="hidden" id="comment-id" value="{{id}}">
+                    <input type="hidden" id="comment-author" value="{{author}}">
+                    <button type="button" class="btn btn-info comment-update-btn">수정 완료</button>
+                </form>
+            </div>
+        </li>
+    {{/comments}}
+</ul>
