@@ -36,9 +36,13 @@ public class IndexController {
 
     @GetMapping("/{id}") // 게시글 상세 페이지
     public String show(@PathVariable Long id, Model model) {
-        Board board = boardRepository.findById(id).orElse(null);
+        Board board = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                );
 
         model.addAttribute("board", board);
+        model.addAttribute("comments", board.getComments());
 
         return "show";
     }

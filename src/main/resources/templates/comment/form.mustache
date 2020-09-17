@@ -8,6 +8,19 @@
             <input type="hidden" id="comment-author" value="익명">
             <button type="button" class="btn btn-primary" id="comment-create">제출</button>
         </form>
+
+        <ul class="list-unstyled">
+            {{#comments}}
+                <li class="media mt-4">
+                    <img src="https://api.adorable.io/avatars/64/{{author}}.png" class="mr-3" alt="avata">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{author}}</h5>
+                        <p>{{content}}</p>
+                    </div>
+                </li>
+                {{updatedTime}}
+            {{/comments}}
+        </ul>
     </div>
 </div>
 
