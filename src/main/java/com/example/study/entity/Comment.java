@@ -37,4 +37,8 @@ public class Comment extends BaseTime {
     public void stickTo(Board board) {
         this.board = board;
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

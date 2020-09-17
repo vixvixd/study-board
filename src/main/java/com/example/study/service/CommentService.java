@@ -19,13 +19,13 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Comment save(Long articleId, CommentDto commentDto) {
+    public Comment save(Long boardId, CommentDto commentDto) {
 
         // 댓글 확인
         Comment comment = commentDto.toEntity();
 
         // 댓글이 달릴 게시글을 가져옴
-        Board board = boardRepository.findById(articleId)
+        Board board = boardRepository.findById(boardId)
                 .orElseThrow(
                         ()-> new IllegalArgumentException("댓글을 작성할 게시글이 없습니다")
                 );
@@ -36,5 +36,22 @@ public class CommentService {
         Comment saved = commentRepository.save(comment);
 
         return saved;
+    }
+
+    @Transactional
+    public Comment update(Long id, CommentDto commentDto) {
+
+        Comment comment = commentDto.toEntity();
+
+        // DB에서 기존댓글을 가져옴
+        Comment target = commentRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 댓글이 없습니다")
+                );
+
+        // 기존 댓글을 수정
+        target.update(comment.getContent());
+
+        return commentRepository.save(target);
     }
 }

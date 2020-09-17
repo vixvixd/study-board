@@ -5,10 +5,7 @@ import com.example.study.entity.Comment;
 import com.example.study.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,5 +18,14 @@ public class CommentApiController {
         Comment saved = commentService.save(boardId, commentDto);
 
         return saved.getId();
+    }
+
+    @PutMapping("/api/comments/{id}")
+    public Long update(@PathVariable Long id, @RequestBody CommentDto commentDto) {
+
+        Comment update = commentService.update(id, commentDto);
+
+        return update.getId();
+
     }
 }
