@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentDto {
 
-    private Long id;
 
     private String content;
 
@@ -17,7 +16,6 @@ public class CommentDto {
 
     public Comment toEntity() {
         return Comment.builder()
-                .id(id)
                 .content(content)
                 .author(author)
                 .build();

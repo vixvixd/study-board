@@ -22,15 +22,23 @@ var comment = {
     });
 
 
-    const updateBtn = document.querySelectorAll('.comment-update-btn');
-
-    updateBtn.forEach(function(item) {
+   const updateBtn = document.querySelectorAll('.comment-update-btn');
+     updateBtn.forEach(function(item) {
       item.addEventListener('click', function() {
         var form = this.closest('form');
         _this.update(form);
       });
     });
-  },
+
+
+   const destroyBtn = document.querySelectorAll('.comment-destroy-btn');
+      destroyBtn.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var commentId = this.getAttribute('value');
+          _this.destroy(commentId);
+        });
+      });
+    },
 
   create: function() {
     var data = {
@@ -81,6 +89,21 @@ var comment = {
       }
       window.location.reload(true);
     });
+  },
+
+ destroy: function(commentId) {
+
+    fetch('/api/comments/' + commentId, {
+      method: 'DELETE',
+    }).then(function(response) {
+      if (response.ok) {
+        alert('댓글이 삭제 되었습니다.');
+      } else {
+        alert(JSON.stringify(response));
+      }
+      window.location.reload(true);
+    });
   }
 };
+
 comment.init();

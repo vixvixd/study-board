@@ -28,4 +28,9 @@ public class CommentApiController {
         return update.getId();
 
     }
+
+    @DeleteMapping("/api/comments/{id}")
+    public Long delete(@PathVariable Long id) {
+        return commentService.delete(id);
+    }
 }

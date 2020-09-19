@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.predicate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -117,5 +118,39 @@ public class CommentApiControllerTest {
         List<Board> board = boardRepository.findAll();
         assertThat(updated.get(0).getContent()).isEqualTo(updatedContent); // 댓글 수정 확인
         assertThat(board.get(0).getTitle()).isEqualTo("title"); // 게시글 확인
+    }
+
+    @Test
+    public void 댓글_삭제() throws Exception {
+        //given
+        Board boardSaved = boardRepository.save(Board.builder()  // 게시글 저장
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        Long boardId = boardSaved.getId();
+
+        Comment commentSaved = commentRepository.save(Comment.builder() // 댓글 저장
+                .author("익명")
+                .content("content")
+                .build());
+
+        String url = "http://localhost:"+port+"/api/comments/"+boardId;
+
+        HttpEntity<Comment> requestEntity = new HttpEntity<>(commentSaved);
+
+        //when
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity,Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Comment> deleted = commentRepository.findAll();
+        List<Board> board = boardRepository.findAll();
+        assertThat(deleted).isEmpty();
+        assertThat(board.get(0).getTitle()).isEqualTo("title");
+
     }
 }

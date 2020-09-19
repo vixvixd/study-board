@@ -55,4 +55,10 @@ public class CommentService {
 
         return commentRepository.save(target);
     }
+
+    @Transactional
+    public Long delete(Long id) {
+        commentRepository.deleteById(id);
+        return id;
+    }
 }
