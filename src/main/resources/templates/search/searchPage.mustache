@@ -10,16 +10,16 @@
         <th scope="col">작성시간</th>
     </tr>
     </thead>
-{{#boardList}}
-    <tbody>
-    <tr>
-        <th scope="row">{{id}}</th>
-        <td><a href="/{{id}}">{{title}}</a></td>
-        <td>{{author}}</td>
-        <td>{{createdTime}}</td>
-    </tr>
-    </tbody>
-{{/boardList}}
+    {{#searchList}}
+        <tbody>
+        <tr>
+            <th scope="row">{{id}}</th>
+            <td><a href="/{{id}}">{{title}}</a></td>
+            <td>{{author}}</td>
+            <td>{{createdTime}}</td>
+        </tr>
+        </tbody>
+    {{/searchList}}
 </table>
 
 {{>search/searchForm}}

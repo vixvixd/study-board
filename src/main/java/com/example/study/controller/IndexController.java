@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -45,6 +44,7 @@ public class IndexController {
         model.addAttribute("comments", board.getComments());
 
         return "show";
+
     }
 
     @GetMapping("/edit/{id}")
@@ -56,5 +56,15 @@ public class IndexController {
         model.addAttribute("board", edit);
 
         return "edit";
+    }
+
+    @GetMapping("/board/search")
+    public String search(String keyword, Long id,Model model) {
+
+        List<Board> searchList = boardService.search(keyword);
+
+        model.addAttribute("searchList", searchList);
+
+        return "search/searchPage";
     }
 }

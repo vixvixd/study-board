@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BoardApiControllerTest {
 
+    // TODO: TDD테스트코드 알아보기
     @LocalServerPort
     private int port;
 

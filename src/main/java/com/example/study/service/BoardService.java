@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.function.BinaryOperator;
 
 @RequiredArgsConstructor
 @Service
@@ -51,6 +52,15 @@ public class BoardService {
 
     @Transactional
     public List<Board> findAllDESC(List<Board> boards) {
+
         return boardRepository.findAllDESC();
     }
+
+    @Transactional
+    public List<Board> search(String keyword) {
+        List<Board> boardList = boardRepository.findByTitleContaining(keyword);
+
+        return boardList;
+    }
+
 }
