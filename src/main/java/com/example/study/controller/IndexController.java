@@ -59,7 +59,7 @@ public class IndexController {
     }
 
     @GetMapping("/board/search")
-    public String search(String keyword, Long id,Model model) {
+    public String search(String keyword, Model model) {
 
         List<Board> searchList = boardService.search(keyword);
 
