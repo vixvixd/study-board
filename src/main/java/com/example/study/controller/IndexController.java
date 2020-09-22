@@ -4,6 +4,9 @@ import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +22,13 @@ public class IndexController {
 
     private final BoardService boardService;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        List<Board> boardList = boardRepository.findAll();
 
-        model.addAttribute("boardList", boardService.findAllDESC(boardList));
+    @GetMapping("/")
+    public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+//      List<Board> boardList = boardRepository.findAll();
+//      model.addAttribute("boardList", boardService.findAllDESC(boardList));
+
+        model.addAttribute("boardList", boardService.getBoardList(pageable));
 
         return "index";
     }
@@ -44,7 +49,6 @@ public class IndexController {
         model.addAttribute("comments", board.getComments());
 
         return "show";
-
     }
 
     @GetMapping("/edit/{id}")
@@ -59,9 +63,9 @@ public class IndexController {
     }
 
     @GetMapping("/board/search")
-    public String search(String keyword, Model model) {
+    public String search(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable ,Model model) {
 
-        List<Board> searchList = boardService.search(keyword);
+        List<Board> searchList = boardService.search(keyword, pageable);
 
         model.addAttribute("searchList", searchList);
 

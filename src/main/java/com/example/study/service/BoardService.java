@@ -4,17 +4,25 @@ import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 @RequiredArgsConstructor
 @Service
 public class BoardService {
 
     private final BoardRepository boardRepository;
+
+    @Transactional
+    public Page<Board> getBoardList(Pageable pageable) {
+
+        return boardRepository.findAll(pageable);
+
+    }
 
     @Transactional
     public Long save(BoardDto boardDto) {
@@ -50,15 +58,16 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    @Transactional
-    public List<Board> findAllDESC(List<Board> boards) {
+//    @Transactional
+//    public List<Board> findAllDESC(List<Board> boardList) {
+//
+//        return boardRepository.findAllDESC();
+//    }
 
-        return boardRepository.findAllDESC();
-    }
-
     @Transactional
-    public List<Board> search(String keyword) {
-        List<Board> boardList = boardRepository.findByTitleContaining(keyword);
+    public List<Board> search(String keyword, Pageable pageable) {
+
+        List<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
 
         return boardList;
     }
