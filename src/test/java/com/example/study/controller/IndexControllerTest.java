@@ -24,8 +24,8 @@ public class IndexControllerTest {
 
         //then
         assertThat(body).contains("안녕");
-
-
     }
+
+
 
 }

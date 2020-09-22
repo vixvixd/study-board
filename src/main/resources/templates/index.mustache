@@ -9,21 +9,22 @@
         <th scope="col">작성시간</th>
     </tr>
     </thead>
-{{#boardList}}
-    <tbody>
-    <tr>
-        <th scope="row">{{id}}</th>
-        <td><a href="/{{id}}">{{title}}</a></td>
-        <td>{{author}}</td>
-        <td>{{createdTime}}</td>
-    </tr>
-    </tbody>
-{{/boardList}}
+    {{#boardList}}
+        <tbody>
+        <tr>
+            <th scope="row">{{id}}</th>
+            <td><a href="/{{id}}">{{title}}</a></td>
+            <td>{{author}}</td>
+            <td>{{createdTime}}</td>
+        </tr>
+        </tbody>
+    {{/boardList}}
 </table>
 
+
 <ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="?page=0">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="?page=1">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a></li>
 </ul>
 
 {{>search/searchForm}}

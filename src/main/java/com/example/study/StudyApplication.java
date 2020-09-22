@@ -18,7 +18,6 @@ public class StudyApplication {
 		SpringApplication.run(StudyApplication.class, args);
 	}
 
-
 	// 자동 데이터 삽입
 	@Bean
 	public CommandLineRunner initData(BoardRepository boardRepository) {
@@ -26,7 +25,7 @@ public class StudyApplication {
 				IntStream.rangeClosed(1, 30).forEach(i -> {
 					Board board = Board.builder()
 							.title("테스트 제목" + i)
-							.author("테스트 작성자"+ i)
+							.author("테스트 작성자" + i)
 							.content("테스트 본문" + i)
 							.build();
 

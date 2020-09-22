@@ -22,13 +22,14 @@ public class IndexController {
 
     private final BoardService boardService;
 
-
     @GetMapping("/")
     public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 //      List<Board> boardList = boardRepository.findAll();
 //      model.addAttribute("boardList", boardService.findAllDESC(boardList));
 
         model.addAttribute("boardList", boardService.getBoardList(pageable));
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
 
         return "index";
     }
@@ -68,6 +69,9 @@ public class IndexController {
         List<Board> searchList = boardService.search(keyword, pageable);
 
         model.addAttribute("searchList", searchList);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("keyword", keyword);
 
         return "search/searchPage";
     }

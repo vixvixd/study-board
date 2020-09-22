@@ -38,4 +38,5 @@ public class BoardApiController {
                 );
         return new BoardDto(entity);
     }
+
 }

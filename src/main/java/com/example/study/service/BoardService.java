@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class BoardService {
+public class BoardService{
 
     private final BoardRepository boardRepository;
 
@@ -21,7 +21,6 @@ public class BoardService {
     public Page<Board> getBoardList(Pageable pageable) {
 
         return boardRepository.findAll(pageable);
-
     }
 
     @Transactional
@@ -71,5 +70,4 @@ public class BoardService {
 
         return boardList;
     }
-
 }
