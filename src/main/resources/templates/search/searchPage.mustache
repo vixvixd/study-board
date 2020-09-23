@@ -24,8 +24,12 @@
 
 <ul class="pagination justify-content-center">
     <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{previous}}">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">Next</a></li>
-
+    {{#check}}
+        <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">Next</a></li>
+    {{/check}}
+    {{^check}}
+        <li class="page-item disabled"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">??</a></li>
+    {{/check}}
 </ul>
 
 {{>search/searchForm}}

@@ -4,9 +4,6 @@ import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -14,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,7 +26,7 @@ public class IndexController {
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("check", boardService.checkList(pageable));
+        model.addAttribute("check", boardService.getListCheck(pageable));
 
         return "index";
     }
@@ -66,14 +61,13 @@ public class IndexController {
     }
 
     @GetMapping("/board/search")
-    public String search(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable ,Model model) {
+    public String search(String keyword, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        List<Board> searchList = boardService.search(keyword, pageable);
-
-        model.addAttribute("searchList", searchList);
+        model.addAttribute("searchList", boardService.searchList(keyword, pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         model.addAttribute("keyword", keyword);
+        model.addAttribute("check", boardService.getSearchListCheck(pageable, keyword));
 
         return "search/searchPage";
     }

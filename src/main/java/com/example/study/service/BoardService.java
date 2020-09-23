@@ -4,14 +4,14 @@ import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardService{
@@ -19,7 +19,7 @@ public class BoardService{
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Boolean checkList(Pageable pageable) {
+    public Boolean getListCheck(Pageable pageable) {
         Page<Board> saved = getBoardList(pageable);
         Boolean check = saved.hasNext();
 
@@ -47,10 +47,7 @@ public class BoardService{
                 );
 
         board.update(boardDto.getTitle(), boardDto.getContent());
-        // 트랜잭션 안에서 데이터베이스에서 데이터를 가져오면 이 데이터는 영속성 컨텍스트가 유지된 상태
-        // 이 상태에서 해당 데이터의 값을 변경하면 트랜잭션이 끝나는 시점에 해당 테이블에 변경분을 반영
-        // 그래서 별도로 update쿼리를 날릴 필요가 없다
-        // 이 개념을 더티 체킹 이라 함
+        // 더티체킹
 
         return id;
     }
@@ -65,17 +62,21 @@ public class BoardService{
         boardRepository.delete(board);
     }
 
-//    @Transactional
-//    public List<Board> findAllDESC(List<Board> boardList) {
-//
-//        return boardRepository.findAllDESC();
-//    }
-
     @Transactional
-    public List<Board> search(String keyword, Pageable pageable) {
+    public Page<Board> searchList(String keyword, Pageable pageable) {
 
-        List<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
+        Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
 
         return boardList;
     }
+
+    @Transactional
+    public Boolean getSearchListCheck(Pageable pageable, String keyword) {
+        Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
+
+        Boolean check = boardList.hasNext();
+
+        return check;
+    }
+
 }
