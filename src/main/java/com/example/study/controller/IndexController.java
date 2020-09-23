@@ -4,6 +4,9 @@ import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,12 +27,11 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-//      List<Board> boardList = boardRepository.findAll();
-//      model.addAttribute("boardList", boardService.findAllDESC(boardList));
 
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("check", boardService.checkList(pageable));
 
         return "index";
     }

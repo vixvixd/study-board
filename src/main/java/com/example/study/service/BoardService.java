@@ -5,6 +5,7 @@ import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,14 @@ public class BoardService{
     private final BoardRepository boardRepository;
 
     @Transactional
+    public Boolean checkList(Pageable pageable) {
+        Page<Board> saved = getBoardList(pageable);
+        Boolean check = saved.hasNext();
+
+        return check;
+    }
+
+    @Transactional
     public Page<Board> getBoardList(Pageable pageable) {
 
         return boardRepository.findAll(pageable);
@@ -25,8 +34,7 @@ public class BoardService{
 
     @Transactional
     public Long save(BoardDto boardDto) {
-//        Board board = boardDto.toEntity();
-//        Board saved = boardRepository.save(board);
+
         return boardRepository.save(boardDto.toEntity()).getId();
     }
 
