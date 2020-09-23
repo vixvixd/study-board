@@ -24,9 +24,9 @@ public class IndexController {
     public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         model.addAttribute("boardList", boardService.getBoardList(pageable));
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("check", boardService.getListCheck(pageable));
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); // 이전 버튼
+        model.addAttribute("next", pageable.next().getPageNumber()); // 다음 버튼
+        model.addAttribute("check", boardService.getListCheck(pageable)); // 마지막 글 체크
 
         return "index";
     }
@@ -66,8 +66,8 @@ public class IndexController {
         model.addAttribute("searchList", boardService.searchList(keyword, pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("check", boardService.getSearchListCheck(pageable, keyword)); // 마지막 글 체크
         model.addAttribute("keyword", keyword);
-        model.addAttribute("check", boardService.getSearchListCheck(pageable, keyword));
 
         return "search/searchPage";
     }

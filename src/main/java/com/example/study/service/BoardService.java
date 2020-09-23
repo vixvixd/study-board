@@ -19,7 +19,8 @@ public class BoardService{
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Boolean getListCheck(Pageable pageable) {
+    public Boolean getListCheck(Pageable pageable) { // 마지막 페이지 일시 버튼 비 활성화
+
         Page<Board> saved = getBoardList(pageable);
         Boolean check = saved.hasNext();
 
@@ -27,7 +28,7 @@ public class BoardService{
     }
 
     @Transactional
-    public Page<Board> getBoardList(Pageable pageable) {
+    public Page<Board> getBoardList(Pageable pageable) { // 게시글 정렬 및 페이징
 
         return boardRepository.findAll(pageable);
     }
@@ -54,6 +55,7 @@ public class BoardService{
 
     @Transactional
     public void delete(Long id) {
+
         Board board = boardRepository.findById(id)
                 .orElseThrow(
                         () -> new IllegalArgumentException("해당 게시글이 없습니다")
@@ -63,7 +65,7 @@ public class BoardService{
     }
 
     @Transactional
-    public Page<Board> searchList(String keyword, Pageable pageable) {
+    public Page<Board> searchList(String keyword, Pageable pageable) { // 검색결과 리스트 정렬 및 페이징
 
         Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
 
@@ -71,7 +73,8 @@ public class BoardService{
     }
 
     @Transactional
-    public Boolean getSearchListCheck(Pageable pageable, String keyword) {
+    public Boolean getSearchListCheck(Pageable pageable, String keyword) { // 마지막 페이지 일시 버튼 비 활성화
+
         Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
 
         Boolean check = boardList.hasNext();
