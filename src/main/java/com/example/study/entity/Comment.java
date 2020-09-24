@@ -1,5 +1,6 @@
 package com.example.study.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Comment extends BaseTime {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
