@@ -3,6 +3,7 @@ package com.example.study.api;
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
+import com.example.study.service.BoardService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -21,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BoardApiControllerTest {
 
-    // TODO: TDD테스트코드 알아보기
+    // TODO: 정렬 및 페이징 API 테스트 하기
     @LocalServerPort
     private int port;
 
@@ -30,6 +34,9 @@ public class BoardApiControllerTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @After
     public void clean() {

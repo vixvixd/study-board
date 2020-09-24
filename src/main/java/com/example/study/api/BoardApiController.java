@@ -5,6 +5,10 @@ import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -37,6 +41,20 @@ public class BoardApiController {
                         ()-> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
         return new BoardDto(entity);
+    }
+
+    @GetMapping("/api/board/boardlist")
+    public Page<Board> getBoardList(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> boards = boardRepository.findAll(pageable);
+
+        return boards;
+    }
+
+    @GetMapping("/api/board/searchlist")
+    public Page<Board> getSearchList(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> boards = boardRepository.findByTitleContaining(keyword, pageable);
+
+        return boards;
     }
 
 }

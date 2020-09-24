@@ -16,22 +16,10 @@ import javax.transaction.Transactional;
 @Service
 public class BoardService{
 
+    // TODO: 조회수, 좋아요, 블로그처럼 포스팅(ex 이미지 등), 로그인, 게시글작성 권한 나만, 검색결과에 태그도 포함 시키기(SQL OR 사용), 게스트권한은 댓글만
+    //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한)
+
     private final BoardRepository boardRepository;
-
-    @Transactional
-    public Boolean getListCheck(Pageable pageable) { // 마지막 페이지 일시 버튼 비 활성화
-
-        Page<Board> saved = getBoardList(pageable);
-        Boolean check = saved.hasNext();
-
-        return check;
-    }
-
-    @Transactional
-    public Page<Board> getBoardList(Pageable pageable) { // 게시글 정렬 및 페이징
-
-        return boardRepository.findAll(pageable);
-    }
 
     @Transactional
     public Long save(BoardDto boardDto) {
@@ -65,17 +53,31 @@ public class BoardService{
     }
 
     @Transactional
-    public Page<Board> searchList(String keyword, Pageable pageable) { // 검색결과 리스트 정렬 및 페이징
+    public Page<Board> getBoardList(Pageable pageable) { // 메인 페이지 정렬 및 페이징
 
-        Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
+        return boardRepository.findAll(pageable);
+    }
 
-        return boardList;
+    @Transactional
+    public Boolean getListCheck(Pageable pageable) { // 마지막 페이지 일시 버튼 비 활성화
+
+        Page<Board> saved = getBoardList(pageable);
+
+        Boolean check = saved.hasNext();
+
+        return check;
+    }
+
+    @Transactional
+    public Page<Board> getSearchList(String keyword, Pageable pageable) { // 검색 결과 페이지 정렬 및 페이징
+
+        return boardRepository.findByTitleContaining(keyword, pageable);
     }
 
     @Transactional
     public Boolean getSearchListCheck(Pageable pageable, String keyword) { // 마지막 페이지 일시 버튼 비 활성화
 
-        Page<Board> boardList = boardRepository.findByTitleContaining(keyword, pageable);
+        Page<Board> boardList = getSearchList(keyword, pageable);
 
         Boolean check = boardList.hasNext();
 

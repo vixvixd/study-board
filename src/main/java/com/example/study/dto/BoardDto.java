@@ -14,6 +14,8 @@ public class BoardDto {
     private String content;
     private String author;
 
+    // TODO: 조회수
+
     @Builder
     public BoardDto(String title, String content, String author) {
         this.title = title;
