@@ -26,6 +26,8 @@ public class Board extends BaseTime {
     @Column(nullable = false)
     private String author;
 
+    private int view;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
     private List<Comment> comments;
 

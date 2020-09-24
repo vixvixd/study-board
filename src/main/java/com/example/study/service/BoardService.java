@@ -4,19 +4,17 @@ import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardService{
 
-    // TODO: 조회수, 좋아요, 블로그처럼 포스팅(ex 이미지 등), 로그인, 게시글작성 권한 나만, 검색결과에 태그도 포함 시키기(SQL OR 사용), 게스트권한은 댓글만
+    // TODO: 좋아요, 블로그처럼 포스팅(ex 이미지 등), 로그인, 게시글작성 권한 나만, 검색결과에 태그도 포함 시키기(SQL OR 사용), 게스트권한은 댓글만
     //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한)
 
     private final BoardRepository boardRepository;
@@ -84,4 +82,8 @@ public class BoardService{
         return check;
     }
 
+    @Transactional
+    public int updateView(Long id) {
+        return boardRepository.updateView(id);
+    }
 }

@@ -21,8 +21,9 @@ public class IndexController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String index(Long id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
+        model.addAttribute("view", boardService.updateView(id));
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); // 이전 버튼
         model.addAttribute("next", pageable.next().getPageNumber()); // 다음 버튼
@@ -43,6 +44,7 @@ public class IndexController {
                         ()-> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
+        model.addAttribute("view", boardService.updateView(id));
         model.addAttribute("board", board);
         model.addAttribute("comments", board.getComments());
 

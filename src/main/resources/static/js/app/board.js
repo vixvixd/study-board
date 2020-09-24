@@ -1,7 +1,7 @@
-
-  var board = {
+ var board = {
     init: function() {
       var _this = this;
+
       const createBtn = document.querySelector('#submit');
       const deleteBtn = document.querySelector('#delete');
       const updateBtn = document.querySelector('#update');
@@ -17,6 +17,7 @@
            updateBtn.addEventListener('click', _this.update);
          }
     },
+
     create: function() {
       var data = {
         title: document.querySelector('#title').value,
@@ -38,6 +39,7 @@
         }
       });
     },
+
     update: function() {
       var data = {
         id: document.querySelector('#board_id').value,
@@ -60,6 +62,7 @@
             }
           });
         },
+
       delete: function() {
         var split = location.pathname.split('/');
         var id = split[split.length - 1];

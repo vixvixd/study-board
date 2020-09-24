@@ -1,5 +1,8 @@
 package com.example.study.controller;
 
+import com.example.study.repository.BoardRepository;
+import com.example.study.service.BoardService;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class IndexControllerTest {
     @Autowired
     TestRestTemplate testRestTemplate;
 
+    @Autowired
+    private BoardService boardService;
+
     @Test
     public void 메인페이지로딩() {
         //when
@@ -24,6 +30,18 @@ public class IndexControllerTest {
 
         //then
         assertThat(body).contains("안녕");
+    }
+
+    @Test
+    public void 조회수_테스트() {
+        //given
+
+        //when
+        int view = boardService.updateView(1L);
+
+        //then
+        assertThat(view).isEqualTo(1);
+
     }
 
 
