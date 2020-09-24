@@ -1,5 +1,6 @@
 package com.example.study.controller;
 
+import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
@@ -38,26 +39,21 @@ public class IndexController {
     }
 
     @GetMapping("/{id}") // 게시글 상세 페이지
-    public String show(@PathVariable Long id, Model model) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
-                );
+    public String detail(@PathVariable Long id, Model model) {
 
         model.addAttribute("view", boardService.updateView(id));
-        model.addAttribute("board", board);
-        model.addAttribute("comments", board.getComments());
+        model.addAttribute("board", boardService.detail(id));
+        model.addAttribute("comments", boardService.detail(id).getComments());
 
         return "show";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
-        Board edit = boardRepository.findById(id)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("해당 게시글이 없습니다")
-                );
-        model.addAttribute("board", edit);
+    public String update(@PathVariable Long id, Model model) {
+
+        BoardDto boardDto = boardService.findById(id);
+
+        model.addAttribute("board", boardDto);
 
         return "edit";
     }

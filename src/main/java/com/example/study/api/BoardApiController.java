@@ -45,6 +45,7 @@ public class BoardApiController {
         return new BoardDto(entity);
     }
 
+    // TODO: 댓글을 달고 API 확인 시 오류 있음
     @GetMapping("/api/board/boardlist")
     public Page<Board> getBoardList(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable);

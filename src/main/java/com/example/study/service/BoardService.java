@@ -20,9 +20,27 @@ public class BoardService{
     private final BoardRepository boardRepository;
 
     @Transactional
+    public BoardDto findById(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다.")
+                );
+        return new BoardDto(board);
+    }
+
+    @Transactional
     public Long save(BoardDto boardDto) {
 
         return boardRepository.save(boardDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Board detail(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
+                );
+        return board;
     }
 
     @Transactional
