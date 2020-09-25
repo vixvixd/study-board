@@ -16,9 +16,9 @@ public class BoardDto {
     private String title;
     private String content;
     private String author;
+    private int commentNumber;
     private List<Comment> comments;
     private int view;
-    private int commentNumber;
 
     @Builder
     public BoardDto(String title, String content, String author, List<Comment> comments, int view, int commentNumber) {
@@ -36,8 +36,8 @@ public class BoardDto {
                 .content(content)
                 .author(author)
                 .comments(comments)
-                .view(view)
                 .commentNumber(commentNumber)
+                .view(view)
                 .build();
 
     }
@@ -47,8 +47,8 @@ public class BoardDto {
         this.content = entity.getContent();
         this.author = entity.getAuthor();
         this.comments = entity.getComments();
-        this.view = entity.getView();
         this.commentNumber = entity.getCommentNumber();
+        this.view = entity.getView();
     }
 
 }

@@ -40,19 +40,20 @@ public class BoardApiController {
                 .orElseThrow(
                         ()-> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
+
         return new BoardDto(entity);
     }
 
     @GetMapping("/api/board/boardlist")
     public Page<Board> getBoardList(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Board> boards = boardRepository.findAll(pageable);
+        Page<Board> boards = boardService.getBoardList(pageable);
 
         return boards;
     }
 
     @GetMapping("/api/board/searchlist")
     public Page<Board> getSearchList(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Board> boards = boardRepository.findByTitleContaining(keyword, pageable);
+        Page<Board> boards = boardService.getSearchList(keyword, pageable);
 
         return boards;
     }

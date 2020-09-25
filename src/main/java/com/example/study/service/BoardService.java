@@ -2,7 +2,6 @@ package com.example.study.service;
 
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
-import com.example.study.entity.Comment;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.IllformedLocaleException;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,11 +20,11 @@ public class BoardService{
     //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한), 정렬기능(ex 조회수 오름내림, 최신순 오름내림, 댓글순 오름내림 등등),
     //  서버 배포
 
-    // TODO: 공부할것 | 좋아요(한번 누르면 클릭 안되게), 댓글갯수(컬럼만 만들엇음, 기능구현x, 쿼리좀 공부하자), 좋아요 갯수(마찬가지)
+    // TODO: 공부할것들 - 좋아요(한번 누르면 클릭 안되게), 댓글갯수(컬럼만 만들엇음, 기능구현x), 좋아요 갯수(마찬가지)
 
     private final BoardRepository boardRepository;
 
-    @Transactional
+    @Transactional // API update
     public BoardDto findById(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(
@@ -112,23 +109,6 @@ public class BoardService{
     @Transactional
     public int updateView(Long id) {
         return boardRepository.updateView(id);
-    }
-
-    @Transactional
-    public int comment(Long id) {
-
-        Board board = boardRepository.findById(id)
-                .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다.")
-                );
-
-        List<Comment> saved = board.getComments();
-        int check = saved.lastIndexOf(saved);
-
-        log.info("내용: "+check);
-
-
-        return check;
     }
 
 }
