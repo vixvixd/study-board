@@ -1,8 +1,6 @@
 package com.example.study.controller;
 
 import com.example.study.dto.BoardDto;
-import com.example.study.entity.Board;
-import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
-
-    private final BoardRepository boardRepository;
 
     private final BoardService boardService;
 
@@ -35,6 +31,7 @@ public class IndexController {
 
     @GetMapping("/create") // 게시글 작성 페이지
     public String create() {
+
         return "create";
     }
 
@@ -59,8 +56,9 @@ public class IndexController {
     }
 
     @GetMapping("/board/search")
-    public String search(String keyword, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String search(Long id, String keyword, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
+        model.addAttribute("view", boardService.updateView(id));
         model.addAttribute("searchList", boardService.getSearchList(keyword, pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());

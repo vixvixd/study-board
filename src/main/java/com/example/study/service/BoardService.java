@@ -14,8 +14,11 @@ import javax.transaction.Transactional;
 @Service
 public class BoardService{
 
-    // TODO: 좋아요, 블로그처럼 포스팅(ex 이미지 등), 로그인, 게시글작성 권한 나만, 검색결과에 태그도 포함 시키기(SQL OR 사용), 게스트권한은 댓글만
-    //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한)
+    // TODO: 블로그처럼 포스팅(ex 이미지 등), 로그인, 게시글작성 권한 나만, 검색결과에 태그도 포함 시키기(SQL OR 사용), 게스트권한은 댓글만
+    //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한), 정렬기능(ex 조회수 오름내림, 최신순 오름내림, 댓글순 오름내림 등등),
+    //  서버 배포
+
+    // TODO: 공부할것 | 좋아요(한번 누르면 클릭 안되게), 댓글갯수(컬럼만 만들엇음, 기능구현x, 쿼리좀 공부하자), 좋아요 갯수(마찬가지)
 
     private final BoardRepository boardRepository;
 
@@ -25,6 +28,7 @@ public class BoardService{
                 .orElseThrow(
                         ()-> new IllegalArgumentException("해당 게시글이 없습니다.")
                 );
+
         return new BoardDto(board);
     }
 
@@ -51,7 +55,7 @@ public class BoardService{
                         () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
-        board.update(boardDto.getTitle(), boardDto.getContent());
+        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getView(), boardDto.getCommentNumber());
         // 더티체킹
 
         return id;
@@ -104,4 +108,5 @@ public class BoardService{
     public int updateView(Long id) {
         return boardRepository.updateView(id);
     }
+
 }

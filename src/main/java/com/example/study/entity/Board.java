@@ -26,21 +26,29 @@ public class Board extends BaseTime {
     @Column(nullable = false)
     private String author;
 
+    @Column
     private int view;
+
+    @Column
+    private int commentNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
     private List<Comment> comments;
 
     @Builder
-    public Board(Long id, String title, String content, String author) {
+    public Board(Long id, String title, String content, String author, int view, int commentNumber) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
+        this.view = view;
+        this.commentNumber = commentNumber;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, int view, int commentNumber) {
         this.title = title;
         this.content = content;
+        this.view = view;
+        this.commentNumber = commentNumber;
     }
 }
