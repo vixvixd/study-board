@@ -36,19 +36,21 @@ public class Board extends BaseTime {
     private List<Comment> comments;
 
     @Builder
-    public Board(Long id, String title, String content, String author, int view, int commentNumber) {
+    public Board(Long id, String title, String content, String author, List<Comment> comments, int view, int commentNumber) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.comments = comments;
         this.author = author;
         this.view = view;
         this.commentNumber = commentNumber;
     }
 
-    public void update(String title, String content, int view, int commentNumber) {
+    public void update(String title, String content, int view, List<Comment> comments , int commentNumber) {
         this.title = title;
         this.content = content;
         this.view = view;
+        this.comments = comments;
         this.commentNumber = commentNumber;
     }
 }

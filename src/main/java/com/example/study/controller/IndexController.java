@@ -24,7 +24,7 @@ public class IndexController {
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); // 이전 버튼
         model.addAttribute("next", pageable.next().getPageNumber()); // 다음 버튼
-        model.addAttribute("check", boardService.getListCheck(pageable)); // 마지막 글 체크
+        model.addAttribute("check", boardService.checkLastPage(pageable)); // 마지막 글 체크
 
         return "index";
     }
@@ -62,9 +62,10 @@ public class IndexController {
         model.addAttribute("searchList", boardService.getSearchList(keyword, pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("check", boardService.getSearchListCheck(pageable, keyword)); // 마지막 글 체크
+        model.addAttribute("check", boardService.checkLastSearchPage(pageable, keyword)); // 마지막 글 체크
         model.addAttribute("keyword", keyword);
 
         return "search/searchPage";
     }
+
 }

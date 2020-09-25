@@ -2,14 +2,19 @@ package com.example.study.service;
 
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
+import com.example.study.entity.Comment;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.IllformedLocaleException;
+import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardService{
@@ -55,7 +60,7 @@ public class BoardService{
                         () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
-        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getView(), boardDto.getCommentNumber());
+        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getView(), boardDto.getComments() , boardDto.getCommentNumber());
         // 더티체킹
 
         return id;
@@ -79,7 +84,7 @@ public class BoardService{
     }
 
     @Transactional
-    public Boolean getListCheck(Pageable pageable) { // 마지막 페이지 일시 버튼 비 활성화
+    public Boolean checkLastPage(Pageable pageable) { // 마지막 페이지 일시 버튼 비 활성화
 
         Page<Board> saved = getBoardList(pageable);
 
@@ -95,7 +100,7 @@ public class BoardService{
     }
 
     @Transactional
-    public Boolean getSearchListCheck(Pageable pageable, String keyword) { // 마지막 페이지 일시 버튼 비 활성화
+    public Boolean checkLastSearchPage(Pageable pageable, String keyword) { // 마지막 페이지 일시 버튼 비 활성화
 
         Page<Board> boardList = getSearchList(keyword, pageable);
 
@@ -107,6 +112,23 @@ public class BoardService{
     @Transactional
     public int updateView(Long id) {
         return boardRepository.updateView(id);
+    }
+
+    @Transactional
+    public int comment(Long id) {
+
+        Board board = boardRepository.findById(id)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("해당 게시글이 없습니다.")
+                );
+
+        List<Comment> saved = board.getComments();
+        int check = saved.lastIndexOf(saved);
+
+        log.info("내용: "+check);
+
+
+        return check;
     }
 
 }

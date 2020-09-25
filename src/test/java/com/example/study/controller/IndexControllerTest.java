@@ -1,5 +1,7 @@
 package com.example.study.controller;
 
+import com.example.study.entity.Board;
+import com.example.study.entity.Comment;
 import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import org.assertj.core.api.Assertions;
@@ -10,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,9 +45,5 @@ public class IndexControllerTest {
 
         //then
         assertThat(view).isEqualTo(1);
-
     }
-
-
-
 }
