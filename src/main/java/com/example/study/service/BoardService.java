@@ -58,7 +58,7 @@ public class BoardService{
                         () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
-        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getCommentNumber());
+        board.update(boardDto.getTitle(), boardDto.getContent());
         // 더티체킹
 
         return id;
