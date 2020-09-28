@@ -1,7 +1,6 @@
 package com.example.study.controller;
 
 import com.example.study.dto.BoardDto;
-import com.example.study.repository.BoardRepository;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(Long id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        model.addAttribute("view", boardService.updateView(id));
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); // 이전 버튼
         model.addAttribute("next", pageable.next().getPageNumber()); // 다음 버튼

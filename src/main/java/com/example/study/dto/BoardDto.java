@@ -21,13 +21,10 @@ public class BoardDto {
     private int view;
 
     @Builder
-    public BoardDto(String title, String content, String author, List<Comment> comments, int view, int commentNumber) {
+    public BoardDto(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.comments = comments;
-        this.view = view;
-        this.commentNumber = commentNumber;
     }
 
     public Board toEntity() {
@@ -35,9 +32,6 @@ public class BoardDto {
                 .title(title)
                 .content(content)
                 .author(author)
-                .comments(comments)
-                .commentNumber(commentNumber)
-                .view(view)
                 .build();
 
     }

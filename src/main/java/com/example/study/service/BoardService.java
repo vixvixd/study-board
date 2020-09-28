@@ -2,6 +2,7 @@ package com.example.study.service;
 
 import com.example.study.dto.BoardDto;
 import com.example.study.entity.Board;
+import com.example.study.entity.Comment;
 import com.example.study.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class BoardService{
     //  회원가입시 자동으로 게스트권한(반대로도 연습해보기 ex 회원가입시 자동으로 주인권한), 정렬기능(ex 조회수 오름내림, 최신순 오름내림, 댓글순 오름내림 등등),
     //  서버 배포
 
-    // TODO: 공부할것들 - 좋아요(한번 누르면 클릭 안되게), 댓글갯수(컬럼만 만들엇음, 기능구현x), 좋아요 갯수(마찬가지)
+    // TODO: 공부할것들 - 좋아요(한번 누르면 클릭 안되게), 댓글갯수(컬럼만 만들엇음, 기능구현x), 좋아요 갯수
 
     private final BoardRepository boardRepository;
 
@@ -57,7 +58,7 @@ public class BoardService{
                         () -> new IllegalArgumentException("해당 게시글이 없습니다")
                 );
 
-        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getView(), boardDto.getComments() , boardDto.getCommentNumber());
+        board.update(boardDto.getTitle(), boardDto.getContent(), boardDto.getCommentNumber());
         // 더티체킹
 
         return id;
@@ -104,11 +105,12 @@ public class BoardService{
         Boolean check = boardList.hasNext();
 
         return check;
+
     }
 
     @Transactional
     public int updateView(Long id) {
+
         return boardRepository.updateView(id);
     }
-
 }
