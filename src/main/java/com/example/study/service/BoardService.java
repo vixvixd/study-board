@@ -42,7 +42,7 @@ public class BoardService{
     }
 
     @Transactional
-    public Board detail(Long id) {
+    public Board detail(Long id) { //TODO: 컨트롤러에서 엔티티를 받아서 쓰면 안됨, 엔티티를 변경하면 스펙이 바뀜, 그래서 DTO로 받아서 쓰는게 이상적
         Board board = boardRepository.findById(id)
                 .orElseThrow(
                         ()-> new IllegalArgumentException("해당 게시글이 없습니다")

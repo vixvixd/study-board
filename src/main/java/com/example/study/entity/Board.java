@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -32,7 +33,7 @@ public class Board extends BaseTime {
     private int commentNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Board(Long id, String title, String content, String author) {
