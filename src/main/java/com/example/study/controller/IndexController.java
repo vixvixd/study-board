@@ -3,7 +3,6 @@ package com.example.study.controller;
 import com.example.study.dto.BoardDto;
 import com.example.study.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
@@ -20,7 +18,7 @@ public class IndexController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String index(Long id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String index(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         model.addAttribute("boardList", boardService.getBoardList(pageable));
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); // 이전 버튼

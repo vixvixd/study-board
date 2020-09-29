@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@Table(name = "comment")
+@Table
 @NoArgsConstructor
 @Entity
 public class Comment extends BaseTime {

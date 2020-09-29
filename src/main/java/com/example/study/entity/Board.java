@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Table(name = "board")
+@Table
 @NoArgsConstructor
 @Entity
 public class Board extends BaseTime {
