@@ -5,7 +5,9 @@ import com.example.study.entity.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -19,6 +21,8 @@ public class BoardDto {
     private int commentNumber;
     private List<Comment> comments;
     private int view;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
 
     @Builder
     public BoardDto(String title, String content, String author) {
@@ -43,6 +47,8 @@ public class BoardDto {
         this.comments = entity.getComments();
         this.commentNumber = entity.getCommentNumber();
         this.view = entity.getView();
+        this.createdTime = entity.getCreatedTime();
+        this.updatedTime = entity.getUpdatedTime();
     }
 
 }

@@ -38,9 +38,6 @@ public class IndexController {
     public String detail(@PathVariable Long id, Model model) {
 
         model.addAttribute("view", boardService.updateView(id));
-
-        //TODO: 밑에 두개 수정 필요, 엔티티 받아서 쓰면 안됨
-        // 서비스에 findById로 데이터를 가져오자
         model.addAttribute("board", boardService.detail(id));
         model.addAttribute("comments", boardService.detail(id).getComments());
 
