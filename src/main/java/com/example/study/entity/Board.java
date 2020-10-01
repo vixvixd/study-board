@@ -32,7 +32,7 @@ public class Board extends BaseTime {
     @Column
     private int commentNumber;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+    @OneToMany(mappedBy = "board")
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

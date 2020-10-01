@@ -23,7 +23,7 @@ public class Comment extends BaseTime {
     private String content;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 
