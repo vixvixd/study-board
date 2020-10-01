@@ -38,8 +38,8 @@ public class IndexController {
     public String detail(@PathVariable Long id, Model model) {
 
         model.addAttribute("view", boardService.updateView(id));
-        model.addAttribute("board", boardService.detail(id));
-        model.addAttribute("comments", boardService.detail(id).getComments());
+        model.addAttribute("board", boardService.findById(id));
+        model.addAttribute("comments", boardService.findById(id).getComments());
 
         return "show";
     }

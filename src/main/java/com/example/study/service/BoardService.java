@@ -42,15 +42,6 @@ public class BoardService{
     }
 
     @Transactional
-    public BoardDto detail(Long id) { // 타입 기존 entity -> dto로 변경
-        Board board = boardRepository.findById(id)
-                .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 게시글이 없습니다")
-                );
-        return new BoardDto(board);
-    }
-
-    @Transactional
     public Long update(Long id, BoardDto boardDto) {
 
         Board board = boardRepository.findById(id)
