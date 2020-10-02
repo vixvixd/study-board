@@ -23,7 +23,7 @@ public class Comment extends BaseTime {
     private String content;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용 권장 (ToOne은 디폴트 값이 EAGER, ToMany는 디폴드 값이 LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 

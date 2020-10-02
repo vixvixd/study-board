@@ -25,7 +25,7 @@ public class BoardService{
 
     private final BoardRepository boardRepository;
 
-    @Transactional // API update
+    @Transactional
     public BoardDto findById(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(
