@@ -30,7 +30,7 @@ public class Board extends BaseTime {
     private int view;
 
     @Column
-    private int commentNumber;
+    private int commentCount;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL) // cascade: Board를 persist할때 자식엔티티도 자동으로 persist 해줌
     private List<Comment> comments = new ArrayList<>();       // 사용하는곳: 게시판 (자식엔티티가 오직 하나의 부모엔티티에만 연관될때, 하나의 게시글안에는 여러개의 댓글, 이미지, 태그등이 존재)
